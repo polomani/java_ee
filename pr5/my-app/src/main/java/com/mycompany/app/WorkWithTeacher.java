@@ -2,6 +2,9 @@ package com.mycompany.app;
 
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.transaction.annotation.Transactional;
+
+        import java.util.List;
+
 @Transactional
 public class WorkWithTeacher {
     @Autowired
@@ -17,5 +20,9 @@ public class WorkWithTeacher {
     public void saveTacher(Teacher teacher){
         teachersDao.saveTacher(teacher);
         System.out.println("Teacher has been saved "+teacher);
+    }
+
+    public List<Teacher> getAll () {
+        return teachersDao.getAllTeachers();
     }
 }

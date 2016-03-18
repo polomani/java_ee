@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Date;
+import java.util.List;
 
 
 /**
@@ -24,6 +25,10 @@ public class App{
         teacher = workWithTeacher.addTeacher(teacher);
         teacher.setBirthDate(new Date(0));
         workWithTeacher.saveTacher(teacher);
+
+        System.out.println("by id: " + workWithTeacher.getTeacherById(1));
+        System.out.println("by id (cache): " + workWithTeacher.getTeacherById(1));
+        System.out.println("all: " + workWithTeacher.getAll());
     }
 }
 

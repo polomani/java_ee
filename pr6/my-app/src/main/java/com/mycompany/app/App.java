@@ -16,6 +16,11 @@ public class App{
         teacher.setAddress(new Address(){{setFull("Kyiv");}});
         worker.saveLecture(lecture);
         worker.saveTeacher(teacher);
+
+        System.out.println(worker.getAllTeachers());
+        System.out.println(teacher);
+        System.out.println("cached:" + worker.getTeacher(1));//for cache
+
     }
 }
 

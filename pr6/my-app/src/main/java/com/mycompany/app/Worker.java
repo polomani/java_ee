@@ -1,7 +1,14 @@
 package com.mycompany.app;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.transaction.TransactionManager;
 import java.util.List;
 
 /**
@@ -9,6 +16,8 @@ import java.util.List;
  */
 
 public class Worker {
+    @Autowired
+    private PlatformTransactionManager txManager;
     @Autowired
     LecturesDao lecturesDao;
     @Autowired
@@ -26,8 +35,18 @@ public class Worker {
         return student;
     }
 
-    public Teacher saveTeacher(Teacher teacher){
-        teacher = teachersDao.saveTacher(teacher);
+    public Teacher saveTeacher(final Teacher teacher){
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setName("teacherTransactions");
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+        TransactionStatus status = txManager.getTransaction(def);
+        try {
+            teachersDao.saveTeacher(teacher);
+            txManager.commit(status);
+        } catch (Exception e) {
+            txManager.rollback(status);
+        }
         return teacher;
     }
 
@@ -42,5 +61,6 @@ public class Worker {
     public Lecture getLecture(int id) {
         return lecturesDao.getLecture(id);
     }
+
 }
 

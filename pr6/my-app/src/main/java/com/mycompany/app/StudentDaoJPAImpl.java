@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
  * Created by Polomani on 11.03.2016.
  */
 @Repository
-@Transactional
 public class StudentDaoJPAImpl implements StudentsDao{
     @PersistenceContext
     private EntityManager em;

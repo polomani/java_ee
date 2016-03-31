@@ -7,6 +7,6 @@ import java.util.List;
  */
 public interface TeachersDao {
     Teacher getTeacherById(int id);
-    Teacher saveTacher(Teacher teacher);
+    Teacher saveTeacher(Teacher teacher);
     List<Teacher> getAllTeachers();
 }

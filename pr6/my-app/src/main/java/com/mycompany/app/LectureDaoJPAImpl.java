@@ -9,7 +9,6 @@ import javax.persistence.*;
  * Created by Polomani on 11.03.2016.
  */
 @Repository
-@Transactional
 public class LectureDaoJPAImpl implements LecturesDao{
     @PersistenceContext
     private EntityManager em;

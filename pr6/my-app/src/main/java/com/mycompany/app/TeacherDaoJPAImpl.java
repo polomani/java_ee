@@ -12,13 +12,12 @@ import java.util.List;
  * Created by Polomani on 11.03.2016.
  */
 @Repository
-@Transactional
 public class TeacherDaoJPAImpl implements TeachersDao{
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    public Teacher saveTacher(Teacher teacher) {
+    public Teacher saveTeacher(Teacher teacher) {
         return em.merge(teacher);
     }
 

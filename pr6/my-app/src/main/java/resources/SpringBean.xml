@@ -46,4 +46,23 @@
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation"  value="ehcache.xml"/>
     </bean>
+
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="saveStudent" propagation="REQUIRED"/>
+            <tx:method name="saveLecture" propagation="REQUIRED"/>
+            <tx:method name="saveTeacher" propagation="SUPPORTS"/>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice"
+                     pointcut="execution(* *..Worker.*(..))"/>
+    </aop:config>
+
 </beans>
